@@ -14,3 +14,9 @@ app = FastAPI()
 def fetch_products(db: Session = Depends(get_db)):
     products = RepositoryProduct(db).fetch_all()
     return products
+
+
+@app.post('/products')
+def create_product(product: schemas.Product, db: Session = Depends(get_db)):
+    product_created = RepositoryProduct(db).create(product)
+    return product_created
